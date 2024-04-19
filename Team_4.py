@@ -1,47 +1,47 @@
+from kivy.app import App
+from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.textinput import TextInput
+from kivy.uix.button import Button
+from kivy.uix.label import Label
+
+
+
+
 class Transaction:
     def __init__(self, date, amount, category, description):
         self.date = date
         self.amount = amount
         self.category = category
         self.description = description
-def add_transaction():
-    date = input("Введіть дату транзакції (YYYY-MM-DD): ")
-    amount = float(input("Введіть суму транзакції: "))
-    category = input("Введіть категорію транзакції (дохід/витрата): ")
-    description = input("Введіть опис транзакції: ")
 
-    return Transaction(date, amount, category, description)
-transactions = []
-while True:
-    answer = input("Ввести ще транзакцію? (y/n): ")
-    if answer.lower() == "n":
-        break
-    transactions.append(add_transaction())
 
-def get_categories(transactions):
-    categories = set()
-    for transaction in transactions:
-        categories.add(transaction.category)
-    return categories
+class mainscreen(Screen):
+    def __init__(self, name="Main"):
+        super(mainscreen, self).__init__(name=name)
+        t=TextInput()
 
-categories = get_categories(transactions)
-def calculate_total_expenses(transactions):
-    total_expenses = 0
-    for transaction in transactions:
-        if transaction.category == "Витрата":
-            total_expenses += transaction.amount
-    return total_expenses
+        btn=Button(text="Start", on_press=self.switch_1)
+        btn2=Button(text="History", on_press=self.switch_2)
 
-total_expenses = calculate_total_expenses(transactions)
-def print_report(categories, total_expenses):
-    print("Звіт про витрати")
-    print("-----------------")
-    for category in categories:
-        print(f"{category}:")
-        for transaction in transactions:
-            if transaction.category == category:
-                print(f"    - {transaction.date}: {transaction.amount} ({transaction.description})")
-    print("-----------------")
-    print(f"Загальні витрати: {total_expenses}")
+        t.add_widget(btn)
+        t.add_widget(btn2)
+        self.add_widget(t)
 
-print_report(categories, total_expenses)
+
+
+def switch_1(self):
+    self.sm.current = "Convert Menu"
+
+
+def switch_2(self):
+    self.sm.current = "History"
+
+
+class ConvertMenu(Screen):
+    def __init__(self, name="Convert Menu"):
+        super(ConvertMenu, self).__init__(name=name)
+        t=TextInput(orientation='vertical')
+        back_btn=Button(text="Back", on_press=self.switch_back)
+        input=TextInput()
+        self.txt=Label(text="Input spendings")
+
