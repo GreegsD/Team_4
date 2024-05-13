@@ -27,6 +27,9 @@ class MainScreen(Screen):
 
         layout = BoxLayout(orientation='vertical', size_hint=(1, 1), pos_hint={'center_x': 0.775, 'center_y': 1}, spacing=20)
         
+        title_label = Label(text="Finance Manager", font_size=48, color=[1, 1, 1, 1], size_hint=(None, None), size=(200, 50))
+        layout.add_widget(title_label)
+
         start_btn = Button(text="Start", on_press=self.start_pressed, size_hint=(None, None), size=(200, 50), padding=(10, 10), background_color='#0000ff')
         layout.add_widget(start_btn)
 
